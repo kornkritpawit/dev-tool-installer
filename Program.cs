@@ -35,6 +35,9 @@ if (!ProcessHelper.IsAdministrator())
 // Check and install winget if needed
 await EnsureWingetInstalledAsync();
 
+// Update winget source to ensure latest package versions
+await UpdateWingetSourceAsync();
+
 Console.Title = "DevToolInstaller";
 
 using var menuSystem = new MenuSystem();
@@ -85,5 +88,24 @@ static async Task EnsureWingetInstalledAsync()
     {
         ConsoleHelper.WriteError($"Failed to install winget: {ex.Message}");
         ConsoleHelper.WriteWarning("Some installers may not work properly without winget.");
+    }
+}
+
+static async Task UpdateWingetSourceAsync()
+{
+    if (!await ProcessHelper.FindExecutableInPathAsync("winget"))
+    {
+        return;
+    }
+
+    ConsoleHelper.WriteInfo("Updating winget source for latest package versions...");
+    try
+    {
+        await ProcessHelper.GetCommandOutput("winget", "source update");
+        ConsoleHelper.WriteSuccess("winget source updated.");
+    }
+    catch
+    {
+        // Non-critical — continue even if source update fails
     }
 }
