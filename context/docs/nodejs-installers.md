@@ -110,6 +110,7 @@ Dependency chain ใหม่สำหรับหมวด Node.js คือ:
 - **Category**: NodeJS
 - **Dependencies**: Node.js 20
 - **Tools Installed**:
+  - **pnpm**: Package manager ที่เร็วและประหยัดพื้นที่ดิสก์
   - **nodemon**: รีสตาร์ตแอป Node.js อัตโนมัติเมื่อไฟล์เปลี่ยน
   - **express-generator**: สร้างโครง Express.js
   - **typescript**: TypeScript compiler

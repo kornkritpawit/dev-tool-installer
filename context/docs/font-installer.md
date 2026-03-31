@@ -4,19 +4,23 @@
 
 ## ที่มาไฟล์ฟอนต์
 
-ตัวติดตั้งจะอ่านไฟล์ zip ที่ฝังมากับโฟลเดอร์โปรเจกต์:
+ตัวติดตั้งใช้ฟอนต์จาก 2 แหล่ง:
 
-- `font/CaskaydiaMonoNerdFontPropo-Regular.zip`
-- `font/THSARABUN_PSK.zip`
+- **CascadiaMono Nerd Font** — ดาวน์โหลดที่ runtime จาก GitHub Releases:
+  `https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/CascadiaMono.zip`
+- **TH Sarabun PSK** — ฝังมากับโปรเจกต์ (bundled) ในโฟลเดอร์ `font/THSARABUN_PSK.zip`
 
 ## วิธีติดตั้ง
 
 เมื่อเลือกเครื่องมือ **Developer Fonts** ระบบจะ:
 
 1. ตรวจสอบสิทธิ์แอดมิน (จำเป็นสำหรับเขียนลงโฟลเดอร์ฟอนต์ของ Windows)
-2. แตกไฟล์ zip ไปยังโฟลเดอร์ชั่วคราว
-3. ค้นหาไฟล์ฟอนต์นามสกุล `.ttf` และ `.otf`
-4. คัดลอกไฟล์ไปยังโฟลเดอร์ `C:\Windows\Fonts`
+2. ดาวน์โหลด CascadiaMono.zip จาก GitHub แล้วแตกไฟล์ไปยังโฟลเดอร์ชั่วคราว
+3. แตกไฟล์ TH Sarabun PSK จาก bundled zip ไปยังโฟลเดอร์ชั่วคราวเดียวกัน (ถ้าไม่พบ zip จะข้ามโดยแจ้งเตือน)
+4. ค้นหาไฟล์ฟอนต์นามสกุล `.ttf` และ `.otf`
+5. คัดลอกไฟล์ไปยังโฟลเดอร์ `C:\Windows\Fonts`
+6. ลงทะเบียนฟอนต์ใน Windows Registry (`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts`)
+7. เรียก Win32 API (`AddFontResource` + `WM_FONTCHANGE`) เพื่อให้ฟอนต์พร้อมใช้งานทันทีโดยไม่ต้องรีบูต
 
 ## พฤติกรรมเมื่อมีฟอนต์อยู่แล้ว
 
@@ -29,4 +33,6 @@
 
 - รองรับเฉพาะ Windows
 - ต้องรันโปรแกรมด้วยสิทธิ์ Administrator
-- หากไม่พบ zip หรือไม่พบไฟล์ `.ttf/.otf` ใน zip จะรายงานข้อผิดพลาดและหยุดติดตั้ง
+- หากไม่พบไฟล์ `.ttf/.otf` ใน zip ที่แตกออกมา จะรายงานข้อผิดพลาดและหยุดติดตั้ง
+- หากไม่พบ bundled TH Sarabun zip จะแสดงคำเตือนแต่ยังคงติดตั้ง CascadiaMono ต่อไปได้
+- ต้องมีการเชื่อมต่ออินเทอร์เน็ตสำหรับดาวน์โหลด CascadiaMono Nerd Font
